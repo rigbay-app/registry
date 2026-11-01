@@ -28,6 +28,27 @@
             ],
             "outsideFiles": []
           }
+        },
+        {
+          "version": "0.1.1",
+          "hostApi": ">=0.1 <0.2",
+          "zip": "https://github.com/rigbay-app/module-predatorsense/releases/download/v0.1.1/predatorsense-0.1.1.zip",
+          "sha256": "c01d1bc848d3a362f83158f1f60be450c84c33c03c81b598a12d9e3e6d293196",
+          "size": 273863,
+          "released": "2026-11-01",
+          "declares": {
+            "admin": true,
+            "network": [],
+            "registry": [
+              "HKLM\\SYSTEM\\CurrentControlSet\\Services\\PSSvc (read, to find the Acer service)",
+              "HKLM\\HARDWARE\\DESCRIPTION\\System\\BIOS (read, for the model name)"
+            ],
+            "services": [
+              "WMI root\\WMI AcerGamingFunction: sensor reads, and a fan mode write (Auto or Maximum) only when you ask",
+              "PSSvc (Acer PredatorSense service): looked up, never started, stopped or called"
+            ],
+            "outsideFiles": []
+          }
         }
       ]
     },
