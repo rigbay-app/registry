@@ -1,4 +1,124 @@
 {
   "schemaVersion": 1,
-  "modules": []
+  "modules": [
+    {
+      "id": "predatorsense",
+      "name": "PredatorSense",
+      "description": "Temperatures and fan speeds of an Acer Predator laptop, and the fan mode: Auto or Maximum.",
+      "repo": "https://github.com/rigbay-app/module-predatorsense",
+      "icon": "https://raw.githubusercontent.com/rigbay-app/module-predatorsense/v0.1.0/icon.svg",
+      "versions": [
+        {
+          "version": "0.1.0",
+          "hostApi": ">=0.1 <0.2",
+          "zip": "https://github.com/rigbay-app/module-predatorsense/releases/download/v0.1.0/predatorsense-0.1.0.zip",
+          "sha256": "1a0421ba5f6134e4298811c3008aa34c32263ef181513f281bef322c277d092a",
+          "size": 273405,
+          "released": "2026-11-01",
+          "declares": {
+            "admin": true,
+            "network": [],
+            "registry": [
+              "HKLM\\SYSTEM\\CurrentControlSet\\Services\\PSSvc (read, to find the Acer service)",
+              "HKLM\\HARDWARE\\DESCRIPTION\\System\\BIOS (read, for the model name)"
+            ],
+            "services": [
+              "WMI root\\WMI AcerGamingFunction: sensor reads, and a fan mode write (Auto or Maximum) only when you ask",
+              "PSSvc (Acer PredatorSense service): looked up, never started, stopped or called"
+            ],
+            "outsideFiles": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "recorder",
+      "name": "Recorder",
+      "description": "Records every metric the other modules publish into a CSV file, with a file next to it that says what each column is.",
+      "repo": "https://github.com/rigbay-app/module-recorder",
+      "icon": "https://raw.githubusercontent.com/rigbay-app/module-recorder/v0.1.0/icon.svg",
+      "versions": [
+        {
+          "version": "0.1.0",
+          "hostApi": ">=0.1 <0.2",
+          "zip": "https://github.com/rigbay-app/module-recorder/releases/download/v0.1.0/recorder-0.1.0.zip",
+          "sha256": "1c746e6bb7ec77adac0895a89612cac12e714fabe61c386c58ebcc892bb2a906",
+          "size": 75255,
+          "released": "2026-11-01",
+          "declares": {
+            "admin": false,
+            "network": [],
+            "registry": [
+              "HKLM\\HARDWARE\\DESCRIPTION\\System\\BIOS (read, machine make and model for the .meta.json)",
+              "HKLM\\HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0 (read, processor name for the .meta.json)"
+            ],
+            "services": [],
+            "outsideFiles": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "steam-bypass",
+      "name": "Steam access",
+      "description": "Restores access to Steam on networks that block it, through a local proxy, DNS over HTTPS and a PAC file.",
+      "repo": "https://github.com/rigbay-app/module-steam-bypass",
+      "icon": "https://raw.githubusercontent.com/rigbay-app/module-steam-bypass/v0.1.0/icon.svg",
+      "versions": [
+        {
+          "version": "0.1.0",
+          "hostApi": ">=0.1 <0.2",
+          "zip": "https://github.com/rigbay-app/module-steam-bypass/releases/download/v0.1.0/steam-bypass-0.1.0.zip",
+          "sha256": "b3b5dc17c3fcb98f4b848efc62f04b526ad5a42b60656402704a71769f5d4dc3",
+          "size": 90537,
+          "released": "2026-11-01",
+          "declares": {
+            "admin": false,
+            "network": [
+              "listens on 127.0.0.1:18081 (local proxy and PAC file, loopback only)",
+              "listens on 127.0.0.1:80 (Steam's game downloader, loopback only)",
+              "DNS over HTTPS to 1.1.1.1, 8.8.8.8, cloudflare-dns.com and dns.google, for Steam host names only",
+              "outgoing connections to the real Steam servers"
+            ],
+            "registry": [
+              "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\AutoConfigURL (the proxy script address of the current user: set while the bypass is on, the previous value put back when it is off)"
+            ],
+            "services": [],
+            "outsideFiles": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "xtu",
+      "name": "XTU profiles",
+      "description": "Switch Intel XTU power-limit profiles (PL1, PL2, time window) and read CPU temperature and power.",
+      "repo": "https://github.com/rigbay-app/module-xtu",
+      "icon": "https://raw.githubusercontent.com/rigbay-app/module-xtu/v0.1.0/Rigbay.Module.Xtu/icon.svg",
+      "versions": [
+        {
+          "version": "0.1.0",
+          "hostApi": ">=0.1 <0.2",
+          "zip": "https://github.com/rigbay-app/module-xtu/releases/download/v0.1.0/xtu-0.1.0.zip",
+          "sha256": "ab5212cbb01f72477edd3f69da359a211ff65ac24d030e92beb919edfa0bda65",
+          "size": 1255267,
+          "released": "2026-11-01",
+          "declares": {
+            "admin": true,
+            "network": [],
+            "registry": [
+              "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Power (HiberbootEnabled, read only)",
+              "HKLM\\HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0 (CPU vendor, read only)",
+              "HKLM\\SYSTEM\\CurrentControlSet\\Services\\XTU3SERVICE (ImagePath, read only: to show the XTU version)"
+            ],
+            "services": [
+              "XTU3SERVICE (named pipes net.pipe://localhost/ExtremeTuningUtility/Tuning and /Monitoring; writes only PL1, PL2, PL2 enable and the time window, after approval)",
+              "reads C:\\ProgramData\\Intel\\Intel Extreme Tuning Utility\\Profiles.xml, uisettings.xml and xtu.hotkey.settings"
+            ],
+            "outsideFiles": []
+          }
+        }
+      ]
+    }
+  ]
 }
