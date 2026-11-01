@@ -1,4 +1,4 @@
-// node --test scripts/
+// node --test scripts/validate.test.mjs
 // Every file in scripts/fixtures is a registry.json; expectations.json says whether it must pass and what the first error must mention.
 // The Rigbay host repository carries a copy of these fixtures and checks that the host reads them with the same verdict.
 import { test } from 'node:test';

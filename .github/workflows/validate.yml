@@ -24,7 +24,7 @@ jobs:
           node-version: '22'
 
       - name: The validator's own tests
-        run: node --test scripts/
+        run: node --test scripts/validate.test.mjs
 
       - name: Validate registry.json
         run: node scripts/validate.mjs registry.json

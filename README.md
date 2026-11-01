@@ -95,7 +95,7 @@ Node 18 or newer, no packages to install.
 
 ```
 node scripts/validate.mjs                 # registry.json
-node --test scripts/                      # the validator's own tests, over scripts/fixtures
+node --test scripts/validate.test.mjs     # the validator's own tests, over scripts/fixtures
 ```
 
 `scripts/fixtures` holds one `registry.json` per rule (a valid one, and one that breaks exactly that rule); the Rigbay app repository keeps a copy and
