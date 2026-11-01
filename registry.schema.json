@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/rigbay-app/registry/main/registry.schema.json",
+  "title": "Rigbay module registry",
+  "description": "The list of modules the Rigbay app can install. The app reads registry.json from the main branch of this repository, checks every rule below, and verifies the SHA-256 of a download against the value written here before it unpacks anything. scripts/validate.mjs checks the same rules (and a few that a schema cannot express: ascending versions, one id once, a zip of the same repository, a published release never changes).",
+  "type": "object",
+  "required": ["schemaVersion", "modules"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "schemaVersion": { "const": 1 },
+    "modules": {
+      "type": "array",
+      "maxItems": 500,
+      "items": { "$ref": "#/$defs/module" }
+    }
+  },
+  "$defs": {
+    "module": {
+      "type": "object",
+      "required": ["id", "name", "description", "repo", "versions"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "Equal to the id in the module's module.json. Lowercase words joined by single dashes; rigbay, host, help, list and version are reserved.",
+          "type": "string", "minLength": 2, "maxLength": 40,
+          "pattern": "^(?!(?:rigbay|host|help|list|version)$)[a-z0-9]+(-[a-z0-9]+)*$"
+        },
+        "name": { "type": "string", "minLength": 1, "maxLength": 60 },
+        "description": { "description": "One sentence.", "type": "string", "minLength": 1, "maxLength": 200 },
+        "repo": {
+          "description": "The module's source repository.",
+          "type": "string", "maxLength": 200,
+          "pattern": "^https://github\\.com/[A-Za-z0-9._-]{1,100}/[A-Za-z0-9._-]{1,100}$"
+        },
+        "icon": {
+          "description": "Optional. A .svg or .png file in the module's repository. The app does not fetch it in this version; it is kept for a later one.",
+          "type": "string", "maxLength": 300,
+          "pattern": "^https://(raw\\.githubusercontent\\.com|github\\.com)/[^?#]+\\.(svg|png)$"
+        },
+        "versions": {
+          "description": "Oldest first, strictly ascending by semantic version. A published release is never edited; publish a new version.",
+          "type": "array", "minItems": 1, "maxItems": 200,
+          "items": { "$ref": "#/$defs/release" }
+        }
+      }
+    },
+    "release": {
+      "type": "object",
+      "required": ["version", "hostApi", "zip", "sha256", "size", "released", "declares"],
+      "additionalProperties": false,
+      "properties": {
+        "version": {
+          "description": "Semantic Version 2.0. Equal to the version in the module.json inside the zip.",
+          "type": "string", "maxLength": 64,
+          "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+        },
+        "hostApi": {
+          "description": "The host API versions this release supports, as in module.json: space-separated comparators such as \">=0.1 <0.2\".",
+          "type": "string", "minLength": 1, "maxLength": 100,
+          "pattern": "^\\s*((>=|<=|>|<|=)?\\d+\\.\\d+(\\.\\d+)?\\s*)+$"
+        },
+        "zip": {
+          "description": "The release asset: https://github.com/<owner>/<repo>/releases/download/<tag>/<file>.zip, of the same repository as \"repo\". Nothing else is downloaded.",
+          "type": "string", "maxLength": 400,
+          "pattern": "^https://github\\.com/[A-Za-z0-9._-]{1,100}/[A-Za-z0-9._-]{1,100}/releases/download/[^/?#\\\\]+/[^/?#\\\\]+\\.[zZ][iI][pP]$"
+        },
+        "sha256": { "description": "SHA-256 of the zip, 64 lowercase hex digits.", "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "size": { "description": "Bytes of the zip, at most 64 MB.", "type": "integer", "minimum": 1, "maximum": 67108864 },
+        "released": { "type": "string", "format": "date", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+        "declares": { "$ref": "#/$defs/declares" }
+      }
+    },
+    "declares": {
+      "description": "What the module.json inside the zip declares (requires and probePaths). The app shows it before the download and refuses the install when the manifest declares more than this.",
+      "type": "object",
+      "required": ["admin"],
+      "additionalProperties": false,
+      "properties": {
+        "admin": { "type": "boolean" },
+        "network": { "$ref": "#/$defs/strings" },
+        "registry": { "$ref": "#/$defs/strings" },
+        "services": { "$ref": "#/$defs/strings" },
+        "outsideFiles": { "description": "The probePaths of module.json: folders outside its own that the module reads files from.", "$ref": "#/$defs/strings" }
+      }
+    },
+    "strings": {
+      "type": "array", "maxItems": 32,
+      "items": { "type": "string", "minLength": 1, "maxLength": 260 }
+    }
+  }
+}
