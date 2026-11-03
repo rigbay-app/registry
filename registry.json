@@ -107,6 +107,28 @@
             "services": [],
             "outsideFiles": []
           }
+        },
+        {
+          "version": "0.1.1",
+          "hostApi": ">=0.1 <0.2",
+          "zip": "https://github.com/rigbay-app/module-steam-bypass/releases/download/v0.1.1/steam-bypass-0.1.1.zip",
+          "sha256": "aa48fa8aa7d6ab8685e6731d5019ba5d929c2c308f4d5e5a65f50a926b6c3bdc",
+          "size": 92897,
+          "released": "2026-11-03",
+          "declares": {
+            "admin": false,
+            "network": [
+              "listens on 127.0.0.1:18081 (local proxy and PAC file, loopback only)",
+              "listens on 127.0.0.1:80 (Steam's game downloader, loopback only)",
+              "DNS over HTTPS to 1.1.1.1, 8.8.8.8, cloudflare-dns.com and dns.google, for Steam host names only",
+              "outgoing connections to the real Steam servers"
+            ],
+            "registry": [
+              "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\AutoConfigURL (the proxy script address of the current user: set while the bypass is on, the previous value put back when it is off)"
+            ],
+            "services": [],
+            "outsideFiles": []
+          }
         }
       ]
     },
