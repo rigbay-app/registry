@@ -115,6 +115,24 @@
             "services": [],
             "outsideFiles": []
           }
+        },
+        {
+          "version": "0.1.2",
+          "hostApi": ">=0.1.3 <0.2",
+          "zip": "https://github.com/rigbay-app/module-recorder/releases/download/v0.1.2/recorder-0.1.2.zip",
+          "sha256": "8f5a3f0184e697cc38e9650fc891a710df8b7bf90e2f07939bfc74f69e2ca1fa",
+          "size": 75250,
+          "released": "2026-11-13",
+          "declares": {
+            "admin": false,
+            "network": [],
+            "registry": [
+              "HKLM\\HARDWARE\\DESCRIPTION\\System\\BIOS (read, machine make and model for the .meta.json)",
+              "HKLM\\HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0 (read, processor name for the .meta.json)"
+            ],
+            "services": [],
+            "outsideFiles": []
+          }
         }
       ]
     },
