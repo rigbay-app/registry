@@ -70,6 +70,27 @@
             ],
             "outsideFiles": []
           }
+        },
+        {
+          "version": "0.1.3",
+          "hostApi": ">=0.1.4 <0.2",
+          "zip": "https://github.com/rigbay-app/module-predatorsense/releases/download/v0.1.3/predatorsense-0.1.3.zip",
+          "sha256": "90b679ea4e29ff79c12516f6bb38013b12808ea4012d09c06b5ed5422fc243ca",
+          "size": 280266,
+          "released": "2026-11-13",
+          "declares": {
+            "admin": true,
+            "network": [],
+            "registry": [
+              "HKLM\\SYSTEM\\CurrentControlSet\\Services\\PSSvc (read, to find the Acer service)",
+              "HKLM\\HARDWARE\\DESCRIPTION\\System\\BIOS (read, for the model name)"
+            ],
+            "services": [
+              "WMI root\\WMI AcerGamingFunction: sensor reads, two read-only performance-mode reads (GetGamingMiscSetting 0x0A and 0x0B), and a fan mode write (Auto or Maximum) only when you ask",
+              "PSSvc (Acer PredatorSense service): looked up, never started, stopped or called"
+            ],
+            "outsideFiles": []
+          }
         }
       ]
     },
@@ -122,6 +143,24 @@
           "zip": "https://github.com/rigbay-app/module-recorder/releases/download/v0.1.2/recorder-0.1.2.zip",
           "sha256": "8f5a3f0184e697cc38e9650fc891a710df8b7bf90e2f07939bfc74f69e2ca1fa",
           "size": 75250,
+          "released": "2026-11-13",
+          "declares": {
+            "admin": false,
+            "network": [],
+            "registry": [
+              "HKLM\\HARDWARE\\DESCRIPTION\\System\\BIOS (read, machine make and model for the .meta.json)",
+              "HKLM\\HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0 (read, processor name for the .meta.json)"
+            ],
+            "services": [],
+            "outsideFiles": []
+          }
+        },
+        {
+          "version": "0.1.3",
+          "hostApi": ">=0.1.4 <0.2",
+          "zip": "https://github.com/rigbay-app/module-recorder/releases/download/v0.1.3/recorder-0.1.3.zip",
+          "sha256": "190eca83fa085cea9b3c8e9cf4c3be517e2c1aa16fc3120d08bd8b5b8194bc56",
+          "size": 76370,
           "released": "2026-11-13",
           "declares": {
             "admin": false,
@@ -208,6 +247,28 @@
             "services": [],
             "outsideFiles": []
           }
+        },
+        {
+          "version": "0.1.3",
+          "hostApi": ">=0.1.4 <0.2",
+          "zip": "https://github.com/rigbay-app/module-steam-bypass/releases/download/v0.1.3/steam-bypass-0.1.3.zip",
+          "sha256": "9173ba381ef81b57de1d607b4ddd54271a38b20808393777e88c2f371dadc571",
+          "size": 93544,
+          "released": "2026-11-13",
+          "declares": {
+            "admin": false,
+            "network": [
+              "listens on 127.0.0.1:18081 (local proxy and PAC file, loopback only)",
+              "listens on 127.0.0.1:80 (Steam's game downloader, loopback only)",
+              "DNS over HTTPS to 1.1.1.1, 8.8.8.8, cloudflare-dns.com and dns.google, for Steam host names only",
+              "outgoing connections to the real Steam servers"
+            ],
+            "registry": [
+              "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\AutoConfigURL (the proxy script address of the current user: set while the bypass is on, the previous value put back when it is off)"
+            ],
+            "services": [],
+            "outsideFiles": []
+          }
         }
       ]
     },
@@ -247,6 +308,28 @@
           "sha256": "f381bfbdcb9aad444190a577be04e24d9b3ef376a1c610d091c32ab632cc21da",
           "size": 1256014,
           "released": "2026-11-12",
+          "declares": {
+            "admin": true,
+            "network": [],
+            "registry": [
+              "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Power (HiberbootEnabled, read only)",
+              "HKLM\\HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0 (CPU vendor, read only)",
+              "HKLM\\SYSTEM\\CurrentControlSet\\Services\\XTU3SERVICE (ImagePath, read only: to show the XTU version)"
+            ],
+            "services": [
+              "XTU3SERVICE (named pipes net.pipe://localhost/ExtremeTuningUtility/Tuning and /Monitoring; writes only PL1, PL2, PL2 enable and the time window, after approval)",
+              "reads C:\\ProgramData\\Intel\\Intel Extreme Tuning Utility\\Profiles.xml, uisettings.xml and xtu.hotkey.settings"
+            ],
+            "outsideFiles": []
+          }
+        },
+        {
+          "version": "0.1.2",
+          "hostApi": ">=0.1.4 <0.2",
+          "zip": "https://github.com/rigbay-app/module-xtu/releases/download/v0.1.2/xtu-0.1.2.zip",
+          "sha256": "a03499555bf0f89cb201817547e774023bcb44fdfcd98e112b206ee686e04b33",
+          "size": 1256797,
+          "released": "2026-11-13",
           "declares": {
             "admin": true,
             "network": [],
@@ -312,6 +395,27 @@
               "%ProgramFiles%\\WireGuard"
             ]
           }
+        },
+        {
+          "version": "0.1.2",
+          "hostApi": ">=0.1.4 <0.2",
+          "zip": "https://github.com/rigbay-app/module-tunnel/releases/download/v0.1.2/tunnel-0.1.2.zip",
+          "sha256": "44b6ebacb141620374e14ea9ef9955d860461ee9ff5d241a903a1aaea4b5a273",
+          "size": 75558,
+          "released": "2026-11-13",
+          "declares": {
+            "admin": true,
+            "network": [
+              "reads the addresses of the tunnel adapter and the local TCP listeners (only for the optional local-service check); nothing is sent"
+            ],
+            "registry": [],
+            "services": [
+              "WireGuardTunnel$<name>: installed and removed through wireguard.exe, start type changed (only when you ask)"
+            ],
+            "outsideFiles": [
+              "%ProgramFiles%\\WireGuard"
+            ]
+          }
         }
       ]
     },
@@ -336,6 +440,73 @@
             "services": [
               "NVIDIA driver library nvml.dll from the Windows system folder: 15 read-only NVML calls (readings of the first GPU); nothing is set or reset; the GPU is read only while a page or reader needs it"
             ],
+            "outsideFiles": []
+          }
+        },
+        {
+          "version": "0.1.1",
+          "hostApi": ">=0.1.4 <0.2",
+          "zip": "https://github.com/rigbay-app/module-gpu/releases/download/v0.1.1/gpu-0.1.1.zip",
+          "sha256": "438862f9e9aab14e5a9a63beeb94ae2b6c087c4af0d26e08b7d1def9c0df8bda",
+          "size": 41128,
+          "released": "2026-11-13",
+          "declares": {
+            "admin": false,
+            "network": [],
+            "registry": [],
+            "services": [
+              "NVIDIA driver library nvml.dll from the Windows system folder: 15 read-only NVML calls (readings of the first GPU); nothing is set or reset; the GPU is read only while a page or reader needs it"
+            ],
+            "outsideFiles": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "watch",
+      "name": "Watch",
+      "description": "Alerts when a reading on the metrics bus stays past a limit. Read only.",
+      "repo": "https://github.com/rigbay-app/module-watch",
+      "icon": "https://raw.githubusercontent.com/rigbay-app/module-watch/v0.1.0/icon.svg",
+      "versions": [
+        {
+          "version": "0.1.0",
+          "hostApi": ">=0.1.4 <0.2",
+          "zip": "https://github.com/rigbay-app/module-watch/releases/download/v0.1.0/watch-0.1.0.zip",
+          "sha256": "5070cf8c388c735a08ab7c203479339fc15d467bf2bdd0afe7594be044dc2080",
+          "size": 49899,
+          "released": "2026-11-13",
+          "declares": {
+            "admin": false,
+            "network": [],
+            "registry": [],
+            "services": [
+              "Rigbay metrics bus: background subscriptions to the readings the rules name (read only; it publishes nothing and starts nothing); notifications through the host's tray"
+            ],
+            "outsideFiles": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "scenes",
+      "name": "Game scenes",
+      "description": "When a game you chose runs, runs other modules' commands you approved once, and puts things back when it ends.",
+      "repo": "https://github.com/rigbay-app/module-scenes",
+      "icon": "https://raw.githubusercontent.com/rigbay-app/module-scenes/v0.1.0/icon.svg",
+      "versions": [
+        {
+          "version": "0.1.0",
+          "hostApi": ">=0.1.4 <0.2",
+          "zip": "https://github.com/rigbay-app/module-scenes/releases/download/v0.1.0/scenes-0.1.0.zip",
+          "sha256": "0f7df22bde4d28cdd0a70108707fae8c2008a81d31dbbf5ffb19c9353c51f289",
+          "size": 67110,
+          "released": "2026-11-13",
+          "declares": {
+            "admin": false,
+            "network": [],
+            "registry": [],
+            "services": [],
             "outsideFiles": []
           }
         }
